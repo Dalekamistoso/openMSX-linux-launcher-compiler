@@ -1,0 +1,274 @@
+openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla Beta 2
+=======================================================================
+
+
+*** SI USAS ESTE SCRIPT EN RASPBERRY PI MIRA LAS NOTAS ADICIONALES ***
+
+
+Introducción:
+=============
+
+He escrito este script para proporcionar la mejor emulación de MSX 
+posible en estos momentos para GNU/Linux y como ejemplo para ayudar al 
+desarrollo de scripts.
+
+Adicionalmente se ha facilitado al máximo el uso e instalación para 
+todo tipo de usuarios.
+
+Se incluyen un montón de las mejoras previstas para la próxima versión 
+oficial de openMSX pero además este paquete consta de las siguientes 
+características:
+
+01.- Script para instalación pseudo portable sólo en perfil del usuario
+02.- Sólo se instalan como root las dependencias imprescindibles
+03.- Auto instalación de las dependencias del propio menú "on the fly"
+04.- Auto instalación opcional de traducción del OSD interno de openMSX
+05.- Auto descarga e instalación de las "systemroms" en el emulador
+06.- Desinstalación limpia de TSXAdvanced sin tocar el sistema 
+07.- Instalación de librerias posteriores compatibles con release 18.04 
+08.- Instalación de versiones modernas en derivados de Ubuntu 18.04 LTS
+09.- Soporte de archivos en formato .TSX (openMSX TSX fork)
+10.- Soporte IPS integrado en fichero contenedor TSX (TSX Advanced)  
+11.- Soporte teórico de Fedora (*debería* funcionar)
+12.- Código modular con comentarios para ayudarte a crear tus scripts
+13.- Menú compatible y transparente (se puede usar en Raspbian)
+14.- Soportado Linux Mint 19.3, Ubuntu 18.04 LTS (incluso Raspberry PI)
+15.- Soporte de Fedora Linux versiones 30 en adelante
+16.- Compilado de ejecutable desde GIT del repositorio oficial
+
+
+IMPORTANTE:
+===========
+
+El equipo de openMSX NO TIENE NADA QUE VER CON:
+
+* ESTE SOFTWARE 
+* NI CON LOS FORK CON TSX.
+
+NO LES MOLESTES
+SI ENCUENTRAS UN BUG CONTACTA CON LOS RESPECTIVOS AUTORES
+
+SOLO SE SOPORTA:
+
+* LINUX MINT 19.3
+* UBUNTU LTS 18.04 (Las modernas no necesitan la librerias incluidas)
+* FEDORA 
+* RASPBIAN
+
+Posiblemente se soporte en derivados de estas distros
+
+Si quieres soporte para tu distribución debes cambiar las llamadas de 
+tu gestor de paquetes y las dependencias offline para tu distribución,
+si  estás interesado contacta conmigo para que podamos probarlas.
+
+
+Requisitos:
+===========
+
+- Ubuntu 18.04 / Linux Mint 19.3 (No se ha probado en otras versiones)
+- Fedora 30/31
+- S.O. de 64 bits (los deb/rpm son x64. Via repositorio debería ir x86)
+- El hardware requerido para instalar las distribuciones mencionadas 
+- Los paquetes: "dialog" "pv" y "unzip" (se autodetectan y se instalan)
+
+
+Cómo usar este script:
+======================
+
+
+Desde consola:
+
+./lanzador.sh        (Si usas Mint/Ubuntu)
+./lanzador-fedora.sh (Si usas Fedora)
+
+Si no se lanzara y solo se mostrase el fichero asegurate de hacer: 
+
+Desde consola: 
+
+chmod +x ./lanzador.sh        (Si usas Mint/Ubuntu)
+chmod +x ./lanzador-fedora.sh (Si usas Fedora)
+
+Y ya te funcionará
+
+Desde el entorno gráfico:
+
+Si usas GNOME 3 tendrás que cambiar antes el comportamiento del gestor
+de archivos para que pregunte si ejecutar los scripts de texto o si 
+visualizarlos pues por defecto solo abre el editor de texto.
+
+Para cambiar el comportamiento predeterminado:
+
+Abres el gestor de archivos
+ (Pincha arriba a la izquierda en "Actividades"->"Archivos")
+
+Cuando lo tengas abierto:
+
+Botón de las 3 rayitas en la barra superior a la derecha
+ Pincha en ->Comportamiento y seleccionar:
+
+- Preguntar que hacer (marca la casilla y luego pulsa cerrar)
+
+Al pulsar doble click te preguntará si ejecutarlo o visualizarlo:
+
+ ESCOGER SIEMPRE:
+
+"EJECUTAR EN UN TERMINAL"
+
+En el caso de que pincharas solo en "ejecutar" no te aparecerá nada ya
+que se entiende por un terminal=false y como es un programa de terminal
+no se mostrará.
+
+Si quieres que todo funcione correctamente obedece siempre las 
+instrucciones del script.
+
+Asegurate tambien que tengan los ".sh" los permisos de ejecución:
+
+Para ello:
+
+Botón derecho encima del fichero->Propiedades->Permisos
+
+* Marcar "Permitir ejecutar este archivo como un programa" 
+
+* Seleccionar en TODOS los desplegables en:
+ 
+  "Acceso"->"Lectura y escritura"
+
+
+Algunas notas adicionales:
+==========================
+
+No hay integradas funciones de captura de excepciones todavía
+
+Para acelerar la compilación y evitar posibles fallos en Raspberry
+PI se recomienda encarecidamente cambiar el vm.swapiness a 10
+
+
+Créditos:
+=========
+
+Traducción a español y mod del OSD interno:
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+Script lanzador: 
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+openMSX:
+ andete
+ MBilderbeek
+ mthuurne 
+ Y https://github.com/openMSX/openMSX/graphs/contributors)
+
+openMSX TSX (Fork):
+ NataliaPC 
+ Y (https://github.com/nataliapc/openMSX_TSX/graphs/contributors)
+
+openMSX TSX Advanced (Fork): 
+ imulilla (fork de la versión TSX normal)
+
+Agradecimientos extras:
+
+Paco Gálvez por notificar bugs con ciertas graficas y otros bajo Mint
+Raul (Darkscheiner) por la observación sobre la versión Fedora
+
+
+Notas legales
+=============
+
+* Este software se distribuye tal cual no siendo responsable 
+  de ningún daño o perjuicio causado.
+
+* Este software no tiene garantía de ningún tipo.
+
+* No soy responsable del uso de este software correcto o no.
+
+* La licencia de este software es la misma que openMSX (GPLv2+)
+
+
+Contacto
+=========
+
+DrWh0:
+
+En el MSX.ORG: Usuario drwh0 (https://msx.org/users/drwh0)
+En Twitter: https://twitter.com/Dalekamistoso
+
+imulilla:
+
+En el MSX.ORG: Usuario imulilla https://msx.org/users/imulilla
+En Twitter: https://twitter.com/imulilla
+
+
+Cambios (Changelog)
+===================
+
+03/04/2020 
+
+* Primera versión
+
+04/04/2020 
+
+* Arreglados errores en el instalador de Fedora ya es 100% operativo
+* Eliminado botón redundante de salida en el menú (ambas versiones)
+* Mejoras en la administración de paquetería en Fedora
+* Cambiadas las dependencias locales (Fedora 30)
+* Cambiados los textos en el lanzador de Fedora y Mint/Ubuntu
+* Cambiada la ubicación del fichero de ayuda al directorio del script
+* Cambios en documentación
+
+05/04/2020 
+
+* Arreglado error en la URL de descarga del parche de traducción 
+* Actualizado paquete libGLEW a la v2.1 (algunas GPU necesitan esta)
+* Añadido analisis y reparacion de paquetes dañados antes de instalar
+* Añadidos algunos textos de aviso antes de reparar
+
+
+20/04/2020 
+
+* Arreglados algunos bugs bajo ciertas condiciones
+* Separadas las opciones de reparación
+* Añadida instalación y clonado de código fuente del GIT
+* Añadidas traducciones inglesas (comentarios sin traducir aun)
+
+04/06/2020
+
+* Muchos Colorines en los textos de terminal
+* Añadida visualización de ayuda desde el menú
+* Añadido soporte de instalación de dependencias para compilado
+* Mejoras en clonado y manejo de GIT oficial
+* Añadido soporte de compilación de ejecutables oficiales desde GIT
+* Corregidos unos cuantos errores en textos
+* Añadida opción para futuro soporte de Raspberry Pi
+* Corregidos algunos textos en este fichero
+* Ajustes de formato en este fichero de ayuda
+
+13/06/2020
+
+* Corregidos unos cuantos errores
+* Cambiado el comportamiento de clonado GIT/compilación
+* Reorganizadas las entradas del menú y cambios en sus funciones
+* Añadidas algunas confirmaciones en ventanas de texto
+
+19/06/2020
+
+* Algunos cambios en textos
+* Compilado en modo Raspberri PI/PC rápido sin informe final
+* Ajustes en menús Fedora
+
+
+PENDIENTE (Cosas varias previstas para la proxima version)
+==========================================================
+
+* Organizar el código (esta versión se ha hecho con muy poco tiempo)
+* Traducir los comentarios internos al inglés en la versión inglesa
+* Meter posiblemente un launcher unificado
+* Añadir soporte de GIT/Compilado para la versión openMSX TSXAdvanced
+
+
+
+
+
+
+
+
+
