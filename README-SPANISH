@@ -1,4 +1,4 @@
-openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla Beta 2
+openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla Beta 3
 =======================================================================
 
 
@@ -20,21 +20,18 @@ oficial de openMSX pero además este paquete consta de las siguientes
 características:
 
 01.- Script para instalación pseudo portable sólo en perfil del usuario
-02.- Sólo se instalan como root las dependencias imprescindibles
-03.- Auto instalación de las dependencias del propio menú "on the fly"
-04.- Auto instalación opcional de traducción del OSD interno de openMSX
-05.- Auto descarga e instalación de las "systemroms" en el emulador
-06.- Desinstalación limpia de TSXAdvanced sin tocar el sistema 
-07.- Instalación de librerias posteriores compatibles con release 18.04 
-08.- Instalación de versiones modernas en derivados de Ubuntu 18.04 LTS
-09.- Soporte de archivos en formato .TSX (openMSX TSX fork)
-10.- Soporte IPS integrado en fichero contenedor TSX (TSX Advanced)  
-11.- Soporte teórico de Fedora (*debería* funcionar)
-12.- Código modular con comentarios para ayudarte a crear tus scripts
-13.- Menú compatible y transparente (se puede usar en Raspbian)
-14.- Soportado Linux Mint 19.3, Ubuntu 18.04 LTS (incluso Raspberry PI)
-15.- Soporte de Fedora Linux versiones 30 en adelante
-16.- Compilado de ejecutable desde GIT del repositorio oficial
+02.- Auto instalación de dependencias del propio menú sobre la marcha
+03.- Instalación opcional del parche de mejoras y traducción del OSD
+04.- Auto descarga e instalación de las "systemroms" en el emulador
+05.- Desinstalación de todas las versiones de openMSX incluso las rotas
+06.- Compila e instala la última versión de openMSX desde su GIT
+07.- Soporte de archivos en formato .TSX (openMSX TSX fork)
+08.- Soporte IPS integrado en fichero contenedor TSX (TSX Advanced)
+09.- Modo modular con comentarios para el aprendizaje de scripting
+10.- MOD y traducción transparentes (se pueden usar en Raspbian)
+11.- Soportado Linux Mint 20, Ubuntu 20.04 LTS (incluso Raspberry PI)
+12.- Clona, compila e instala desde los GIT openMSX y openMSX TSXADV
+
 
 
 IMPORTANTE:
@@ -50,10 +47,10 @@ SI ENCUENTRAS UN BUG CONTACTA CON LOS RESPECTIVOS AUTORES
 
 SOLO SE SOPORTA:
 
-* LINUX MINT 19.3
-* UBUNTU LTS 18.04 (Las modernas no necesitan la librerias incluidas)
-* FEDORA 
-* RASPBIAN
+* LINUX MINT 20
+* UBUNTU LTS 20.04
+* DERIVADOS DE UBUNTU 20.04
+* RASPBIAN (Sólo con soporte de libglew 2.1)
 
 Posiblemente se soporte en derivados de estas distros
 
@@ -65,8 +62,8 @@ si  estás interesado contacta conmigo para que podamos probarlas.
 Requisitos:
 ===========
 
-- Ubuntu 18.04 / Linux Mint 19.3 (No se ha probado en otras versiones)
-- Fedora 30/31
+- Ubuntu 20.04 / Linux Mint 20 (No se ha probado en otras versiones)
+- Derivados de Ubuntu 20.04
 - S.O. de 64 bits (los deb/rpm son x64. Via repositorio debería ir x86)
 - El hardware requerido para instalar las distribuciones mencionadas 
 - Los paquetes: "dialog" "pv" y "unzip" (se autodetectan y se instalan)
@@ -79,14 +76,14 @@ Cómo usar este script:
 Desde consola:
 
 ./lanzador.sh        (Si usas Mint/Ubuntu)
-./lanzador-fedora.sh (Si usas Fedora)
+./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
 
 Si no se lanzara y solo se mostrase el fichero asegurate de hacer: 
 
 Desde consola: 
 
 chmod +x ./lanzador.sh        (Si usas Mint/Ubuntu)
-chmod +x ./lanzador-fedora.sh (Si usas Fedora)
+chmod +x ./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
 
 Y ya te funcionará
 
@@ -256,13 +253,27 @@ Cambios (Changelog)
 * Ajustes en menús Fedora
 
 
+21/09/2020
+
+* Reescrito el código por razones de legibilidad (lo hice con prisas)
+* Código más rápido
+* Eliminadas líneas de código que dejé por razones educativas
+* Comentarios reescritos y reestructurados
+* Limpieza masiva del código
+* Abandono de soporte Fedora (no parecía interesarle a nadie)
+* Cambios aquí y allá :)
+* Nuevas funcionalidades de limpieza y reparación
+* Actualizadas las dependencias para las versiones 16.0
+* Debido a cambios en openMSX ya no se soportan distros <20.04 LTS 
+* Los scripts de traducción y mod se incluyen con este script
+* No más dependencias locales incluidas (por compatibilidad/desarrollo)
+
+
 PENDIENTE (Cosas varias previstas para la proxima version)
 ==========================================================
 
-* Organizar el código (esta versión se ha hecho con muy poco tiempo)
-* Traducir los comentarios internos al inglés en la versión inglesa
-* Meter posiblemente un launcher unificado
-* Añadir soporte de GIT/Compilado para la versión openMSX TSXAdvanced
+* Pruebas más extensas en Raspberri Pi bajo Ubuntu 20.04
+* Modo gráfico
 
 
 

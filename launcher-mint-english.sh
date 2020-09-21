@@ -1,41 +1,76 @@
 #!/bin/bash 
 
-# Bloqueo el uso de CTRL+C para interrumpir la ejecución inesperadamente
+#############################################################
+#                                                           #
+#                                                           #
+#  OPENMSX & OPENMSX TSXADVANCED LAUNCHER+COMPILER          #
+# =================================================         #
+#                                                           #
+# FEATURES INCLUDED:                                        #
+#                                                           #
+#  1.- COMPILES & INSTALLS EXECUTABLE FROM MOST RECENT GIT  #
+#                                                           #
+#  2.- REPAIRS PACKAGE MANAGER SYSTEM IF NECESSARY          #
+#                                                           #
+#  3.- STARTS EXECUTABLE WITHIN MENU                        #
+#                                                           #
+#  4.- AUTO INSTALLS SYSTEMROMS FROM A LOCAL ARCHIVE        #
+#                                                           #
+#  5.- DOWNLOADS/INSTALL FULL ROMSET FROM INTERNET          #
+#                                                           #
+#  6.- CLEANS AND UNINSTALLS OPENMSX AND REPOSITORIES       #
+#                                                           #
+#  7.- SUPPORTS BOTH OPENMSX & OPENMSX TSX ADVANCED EDITION #
+#                                                           #
+#  8.- INSTALLS DRWH0 SPANISH TRANSLATION MOD               #
+#                                                           #
+#  9.- INSTALA LIBRERIAS LOCALES MODERNAS (LINUX LTS VIEJOS)# 
+#                                                           #
+#  0.- SUPPORTS MINT/UBUNTU/DEBIAN x64 & ARMxx (20.04 LTS)  #
+#                                                           #
+#                                                           #
+# AUTHORS:                                                  #
+# ========                                                  #
+#                                                           #
+# SCRIPT: Carlos Romero (DrWh0/Dalekamistoso)               #
+#                                                           #
+# OPENMSX: OPENMSX TEAM                                     #
+#                                                           #
+# OPENMSX TSX: NATALIAPC & TSX TEAM                         #
+#                                                           #
+# OPENMSX TSX ADVANCED: Israel Mula (imulilla)              #
+#                                                           #
+#                                                           #
+# CONTACT:                                                  #
+# ========                                                  #
+#                                                           #
+# TWITTER: # https://twitter.com/Dalekamistoso              #
+#                                                           #
+#                                                           #
+#############################################################
+
+
+# Blocks CTRL+C usage in order to avoid unexpected interruption of script
 
 trap '' 2
 
-
-# RUTINA DESACTIVADA PARA USOS FUTUROS (VERIFICA SI ESTAS EJECUTANDO COMO ROOT)
-# ES BASICAMENTE UNA ALTERNATIVA PARA VAGOS Y NO ESPECIFICAR NADA DENTRO DEL SCRIPT
-# SI NO ES EJECUTADO EN MODO ROOT SE NIEGA A ARRANCAR
-#
-# if [[ "$(id -u)" -ne 0 ]]; then
-#     echo "Este Script requiere permisos de root (sudo). O sea 'sudo $0'"
-#     exit 1
-# fi
-
-#############################################################
-# INICIO DE BLOQUE DE PROTECCION PARA PODER INICIAR EL MENU #
-#############################################################
-
-# Aqui verifico que tengas pv y dialog instalados como no los tengas los instala
-# Si no se instalan, el menú fallará porque se basa en ambos paquetes para funcionar
-# La variable "paquetes" indica que librerias se necesitan 
-# Justo y previamente se verificación
-#
+# Variable "paquetes" contains the packages needed for launching frontend
 
 paquetes='dialog pv unzip'
+
+# Required packages verification using if command
+
 if ! dpkg -s $paquetes >/dev/null 2>&1; 
 then
 clear
 echo ""
 echo ""
 echo ""
-echo -e "\e[91mONE OR MORE REQUIRED DEPENDENCIES ARE MISSING - LET'S INSTALL! "
+echo -e "\e[91mOne or more ESSENTIALS packages are missing - Let´s install it!"
 echo ""
-echo -e "\e[92mTHOSE ARE TOTALLY SAFE DON'T WORRY ('DIALOG' 'PV' 'UNZIP')"
+echo -e "\e[92mAre absolutely safe, don´t worry those are ('DIALOG' 'PV' 'UNZIP')"
 echo ""
-echo -e "\e[93mBUT WE ARE GOING TO VERIFY AND REPAIR YOUR PACKAGES FOR SAFETY"
+echo -e "\e[93mBUT IN FIRST PLACE WE WILL CHECK AND REPAIR YOUR PACKAGES FOR SAFETY"
 echo ""
 sleep 2
 sudo apt install --fix-broken 
@@ -43,80 +78,45 @@ sudo apt update --fix-missing
 sleep 2
 clear
 echo ""
-echo -e "\e[93mProcess finished, installing........"
+echo -e "\e[93mProcess finished, starting install process...."
 echo ""
 sudo apt install -y $paquetes
 clear
-echo ""
-echo ""
-echo ""
-echo -e "\e[93mIF YOU INSTALLED CORRECTLY THE PACKAGES THE MENU WILL WORK"
-echo ""
-echo -e "\e[93mIF INSTALLATION WAS ABORTED OR FAILED THE MENU WILL FAIL"
-echo ""
-echo -e "\e[91mIF YOU ARE NOT SURE I RECOMMEND YOU TO EXIT AND START AGAIN"
-echo ""
-echo ""
-echo ""
-echo ""
+fi 
 
-# Pregunto si quieren salir (pulsando 'N' se sale y con 'S' u otra tecla sigue)
-
-while true; do
-    read -p "Start menu Y/n?" op
-    case $op in
-      [Yy]* ) echo -e "\e[93mContinue program. !"; break;;
-      [Nn]* ) echo -e "\e[92mEnd program. !"; exit;;
-          * ) echo -e "\e[93mOk, we will continue then. !"; break;;
-    esac
-done
-         
-
-fi # final del if de las dependencias iniciales
-
-#############################################################
-#  FIN DEL BLOQUE DE PROTECCION PARA PODER INICIAR EL MENU  #
-#############################################################
-
-
-
-#############################################################
-#            INICIO DE BLOQUE DEL MENU PRINCIPAL            #
-#############################################################
-
-
-# Sí, se que está repetido pero es por modularidad para uso en otros scripts
+# START OF MAIN MENU BLOCK
 
 while true
 do
+clear
 
-# Aqui defino los tamaños y propiedades del menú inicial (LO QUE SE VE)
+# Here we define sizes, background and properties of main menu 
 
 HEIGHT=19
-WIDTH=70
-CHOICE_HEIGHT=15
-BACKTITLE="openMSX & TSX Advanced Linux Mod by DrWh0 & imulilla"
-TITLE="openMSX TSX Advanced Linux Mod (Mint/Ubuntu LTS/PI)" 
-MENU="Select desired option and press <ENTER> to confirma:"
+WIDTH=75
+CHOICE_HEIGHT=14
+BACKTITLE="openMSX & TSX Advanced Linux Mod por DrWh0 & imulilla"
+TITLE="openMSX & TSX Advanced Linux Mod (Mint/Ubuntu LTS/PI Menu)" 
+MENU="Select your desired option and press <ENTER> to confirm:"
 
-OPTIONS=(1 "Install updated local dependencies (18.04 or equivalent)"
-         2 "Install dependencies from repositories (optional)"
-         3 "Download & install openMSX TSX Advanced"
-         4 "Run openMSX TSX Advanced (only if installed)"
-         5 "Install DrWh0's spanish translation onto installed TSXADV"
-         6 "Delete installed emulator folder, GIT data and patches"
-         7 "Install system bios (if available)"
-         8 "Repair broken or missing packages (advanced)"
-         9 "Install dependencies, clone GIT, compile & install openMSX"
-         10 "Run OFFICIAL openMSX binary (only if installed)"
-         11 "Fast compile for Raspberry PI (or PC without compile report)"
-         12 "Read help file"
-		 13 "Exit"
+OPTIONS=(1 "Install needed dependencies for compilation and execution"
+         2 "Download & install openMSX TSX Advanced binary files"
+         3 "Compile & install most recent build of openMSX TSXADV from GIT"
+         4 "Execute openMSX TSXADV binary (only for option 2 not 3)"
+         5 "Install DrWh0's Mod Spanish tranlation (current user only)"
+         6 "Delete installed openMSX and all patches"
+         7 "Install and/or download systemroms (if exists)"
+         8 "Repair damaged or missing libraries (advanced users)"
+         9 "Install packages, compiles & install official openMSX"
+         10 "Execute installed openMSX compiled from GIT"
+         11 "Official fast compilation for PC (Use this in PI/ARM)"
+         12 "openMSX TSXADV fast compilation for PC (Use this in PI/ARM)"
+         13 "Read help file"
+         14 "Exit from this program"
 )
 
-# Defino los atributos de la variable choice para simplificar los procesos del case
-# Limpio pantalla y procedo con los case que definen las acciones a ejecutar
-
+# Defines choice variable attributes in order to simplify the usage of case
+# Cleans the screen and starts the case command that defines desired actions
 
 CHOICE=$(dialog --clear \
                 --nocancel \
@@ -131,411 +131,634 @@ clear
 
 case $CHOICE in
         1)
-            # Se instalarán en local TODOS los .deb de la carpeta "dependencias"
+            # INSTALL NEEDED DEPENDENCIES FOR COMPILATION AND EXECUTION
+            
+            # "paquetes2" variable points which packages are needed to compile and execute all openMSX versions
+
+            paquetes2='dialog pv unzip libfreetype6 libfreetype6-dev libglew2.1 libglew-dev tcl8.6 tcl8.6-dev libsdl2-ttf-dev libsdl2-dev pv unzip git gcc make g++ libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev'
+			
+			# The installer command will install the packages defined in the previous stated variable with a description of the process to take place
+			
             clear
             echo ""
             echo ""
             echo ""
-            echo "We are going to insall the .deb packages so I need your root password"
-            echo "If you want to cancel then press CTRL+C to return......"
+            echo -e "\e[93mWe are going to install the packages from your repositories...."
+            echo -e "\e[93mIf you want to cancel press CTRL+C to return"
             echo ""
             echo ""
-            echo -e "\e[93mNote: But before I will verify and repair you local packages"
-			echo "I will use dpkg if still fails use option 2 from main menu before retrying" 
+            sleep 2
+			sudo apt install $paquetes2
 			echo ""
-			sudo dpkg --configure -a
-			echo ""
+            echo ""
+            echo -e "\e[93mProcess finished if something went wrong use repair opetion (8)"
+            echo -e "\e[93mand restart the whole process until problem is solved"
+            echo ""
+            sleep 3
 			clear
-			echo -e "\e[92mVerification finished if something went wrong use option 2 before this"
-			echo ""
-			sleep 2
-            sudo dpkg -i ./dependencias/*.deb
-            dialog --infobox "Exiting from local packages installer" 3 45 ; sleep 2
+            dialog --infobox "Exiting from package manager......" 3 45 ; sleep 2
             ;;
         2)
-		    # Ejecuto en plan compadre el sudo para el apt desde repositorios
+            # DOWNLOAD & INSTALL OPENMSX TSX ADVANCED BINARY FILES
+
+		    # I declare 'URL1' & 'URL2' variables with download links
+            # 'URL1' is the last compiled version of TSXAdvanced
+			# 'URL2' is the last version of my spanish translation+mod for TSXAdvanced
+			
+            URL1="https://github.com/imulilla/openMSX_TSXadv/releases/latest/download/openMSX_TSXadv_linux_latest.tar.gz"
+            URL2="https://github.com/Dalekamistoso/openMSX-Spanish-TSXAdvanced/blob/master/script-tsxadv.tar.gz"
+
+			# We download using wget overwriting with resume transfer option and a timeout of 20 seconds  
+            # After wget action we rename the downloaded file to 'openMSX.tar.gz'
+			# Also I generate a progress bar parsed with command 'pv'
+          
+            wget -t 20 -cO openMSX.tar.gz "$URL1" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Descargando OpenMSX TSX Advanced" 5 100 
+
+            # Proceed to decompress with progress bar (using package "pv")
+
+            (pv -n openMSX.tar.gz | tar xzf - -C ~/) 2>&1 | dialog --gauge "Descomprimiendo..." 6 50
+			
+			# I enable execution attribute for the downloaded binary file and a returning message
+			
+            chmod +x ~/openMSX/openmsx
+
+			dialog --infobox "Process finished - Returning ro main menu" 3 45 ; sleep 2
+            ;;
+        3)   
+            # COMPILE & INSTALL MOST RECENT BUILD OF OPENMSX TSXADV FROM GIT
+            		
+            # COMPILATION OF TSX ADVANCED VERSION 
+            # I install git package, the needed compilers and clone the official repository deleting previously stored one
+            # I show information of the process giving the option to cancel with CTRL+C after 3 seconds I delete the old files
+
+            # "paquetes2" variable points which packages are needed to compile and execute all openMSX versions
+			# Option 1 already install all but it checks that user used that option if not it will proceed to execute it
+
+            paquetes2='dialog pv unzip libfreetype6 libfreetype6-dev libglew2.1 libglew-dev tcl8.6 tcl8.6-dev libsdl2-ttf-dev libsdl2-dev pv unzip git gcc make g++ libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev'
+			
+            if ! dpkg -s $paquetes2 >/dev/null 2>&1; 
+            then
             clear
             echo ""
             echo ""
             echo ""
-            echo -e "\e[93We will try to install packages from your repositories...."
-            echo -e "\e[93If you want to cancel then press CTRL+C to return......"
+            echo -e "\e[91mSOME ESSENTIALS PACKAGES ARE MISSING (YOU DIDN´T USED OPTION 1 BEFORE)"
+            echo ""			
+            echo "We are goning to install anyway.."			
+            echo ""			
+            echo -e "\e[93mBUT FIRST WE ARE GOING TO VERIFY YOUR INSTALLED PACKAGES FOR SAFETY"
+            echo ""
+            sleep 2
+            sudo apt update
+            sudo apt install --fix-broken 
+            sudo apt update --fix-missing
+            echo ""
+            echo "\e[92m IF SOMETHING FAILS REPAIR PACKAGES AND REINSTALL (OPTION 1)"
+            echo ""
+            sleep 2
+            clear
+            echo ""
+            echo -e "\e[93mProcess finisehd, lets install!..............."
             echo ""
             echo ""
-            sudo apt install libglew2.0 tcl8.6 libsdl2-ttf-dev libsdl2-dev pv unzip
-            dialog --infobox "Exiting from remote packages installer" 3 42 ; sleep 2
-            ;;
-        3)              
-		    # Declaro las variables 'URL' y 'URL2' con los links de descarga
-            # 'URL2' es el ultimo compilado del git y los parches de traducción 
-			# Se descargan con wget sobreescribiendo y con reanudación de fichero cortado
-			# Se establece un timeout de 20 sg 
-			
-            URL="https://github.com/imulilla/openMSX_TSXadv/releases/latest/download/openMSX_TSXadv_linux_latest.tar.gz"
-            URL2="https://github.com/imulilla/openMSX_TSXadv/releases/latest/download/script-tsxadv.tar.gz"
-			
-            # Ejecuto el wget y renombro el fichero a 'openMSX.tar.gz'
-			# También genero una barra de progreso con la orden parseada por 'pv'
-          
-            wget -t 20 -cO openMSX.tar.gz "$URL" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading OpenMSX TSX Advanced" 5 100 
+            echo ""
+            sudo apt install -y $paquetes
+            echo ""
+            echo "\e[92m IF SOMETHING FAILS REPAIR PACKAGES AND REINSTALL (OPTION 1)"
+            echo ""
+            sleep 3
+            clear
+            fi 
 
-            # Ahora muestro el dialogo de fin de descarga y a los 2 sg continuo
+            # Starting compilation and installation process
+
+            clear
+            dialog --infobox "We are going to delete old existing sources and we will clone the GIT..
+			
+			If already installed packages are more recent is adviced to select <N> & <ENTER>.
+			
+			If you don´t do it your system *would* break, not start or works badly..............." 10 52 ; sleep 3
+            rm -Rf ./fuentes-openMSX			   
+
+            # Here we start the git clone from TSXADVANCED GIT after deleting old sources if already exists
+            # Afterwards I show the results of dependency check in file "result-check.txt"
+			
+            git clone https://github.com/imulilla/openMSX_TSXadv/ fuentes-openMSX 
+            sleep 3
+            clear
+            echo ""
+            cd "fuentes-openMSX"
+            dialog --infobox "GIT cloned - Starting verification..." 3 43 ; sleep 2
+            clear 
+            echo -e "\e[93mVerifying dependencies........."
+            echo ""
+            ./configure >result-check.txt
             
-            dialog \--infobox "Download process finished....." 3 34 ; sleep 2
+            dialog  --textbox result-check.txt 20 80
+            clear
 
-            # Procedo a descomprimir con una barra de progreso con la libreria "pv"
-
-            (pv -n openMSX.tar.gz | tar xzf - -C ~/) 2>&1 | dialog --gauge "Uncompressing....." 6 50
+            # After git download I ask for starting to compile or not
+            # 0 means [Yes] and starts compiling.
+            # 1 means [No] and return to menu because you saw that something is not working properly.
+            # 255 means [Esc] same effect as [no].
             
-            # Tras descomprimir, muestro otro mensaje de informacion durante 2 sg
+            clear
+            dialog --title "Compile downloaded source code?....." \
+            --backtitle "Compilation and installation menu" \
+            --yesno 'Compile downloaded source code from GIT? ' 7 60
 
-            dialog --infobox "Uncompression finished...." 3 30 ; sleep 2
-
-            # Tras bajar e instalar el emulador doy la opción de hacer lo mismo con el parche de traducción	
-		
-			dialog --title "Download spanish translation?   " \
-            --backtitle "Spanish Translation and improvements by DrWh0" \
-            --yesno 'Download spanish translation & menu modifications?  ' 7 60
-
-            # Aqui verifico el resultado del codigo de estado de yesno
-            # 0 indica que pinchaste en [si].
-            # 1 indica que pinchaste en [no].
-            # 255 indica que pinchaste en [Esc].
-            # Esta rutina la empleo más adelante para confirmar el borrado de lo instalado
-			# Lo hago modularmente en vez de crear una función para permitir su uso externamente
-			# a modo educativo
+            # STARTS MINIBLOCK WITH SECUNDARY CASE TO CONFIRM COMPILATION PROCESS
 			
-############################################################################
-# COMIENZO MINIBLOQUE DE CASE SECUNDARIO PARA CONFIRMAR DESCARGA ADICIONAL #
-############################################################################
-			
-            response=$?
-            case $response in
-            0) URL2="https://www.dropbox.com/s/fv2lbz0k5wppnbk/script-tsxadv.tar.gz?dl=0"
-               wget -t 20 -cO script-tsxadv.tar.gz "$URL2" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading translation patches.." 5 100
-              (pv -n script-tsxadv.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing customizations......." 6 50
-               dialog --infobox "Adjusting C-BIOS & scripts" 3 30 ; sleep 2
-               dialog --infobox "Customization finished...." 3 30 ; sleep 2
-               ;;
-            1) ;;
-            255) ;;
+            response2=$?
+            case $response2 in
+            0)
+                cd "fuentes-openMSX"						
+                clear
+                dialog --infobox "Proceeding to compilation process in 2 seconds......" 3 43 ; sleep 2
+                clear
+                echo -e "\e[93mCompiling (it will tak a lot of time, be patient)"
+                echo ""
+                sudo make install > resultado.txt
+                dialog  --textbox resultado.txt 20 80
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
+            1)  
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
+            255) 
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
             esac
             ;;
+        4)  
+		    # EXECUTE OPENMSX TSXADV BINARY (ONLY FOR OPTION 2 NOT 3)
 			
-############################################################################
-# FINAL DE MINIBLOQUE DE CASE SECUNDARIO PARA CONFIRMAR DESCARGA ADICIONAL #
-############################################################################
-        4)
-            # Limpio pantalla y ejecuto el openmsx en la ruta predeterminada
+            # Clear screen and executes openmsx in default installed path inside user profile
             
             clear
-            chmod +x ~/openMSX/openmsx
             ~/openMSX/openmsx
             ;;
-        5)  
-            # Rutina para aplicar el parche de traducción sobre el openMSX TSX Advanced
-	    # en el caso de que no hubiera instalado la misma (es decir, dejandolo en inglés)
-            URL2="https://github.com/imulilla/openMSX_TSXadv/releases/latest/download/script-tsxadv.tar.gz"
-            dialog --title "Translation patch Download......" --backtitle "Additional spanish translation files by DrWh0" \
-
-wget -t 20 -cO script-tsxadv.tar.gz "$URL2" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading spanish translation.." 5 100
-            (pv -n script-tsxadv.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing customizations........" 6 50
-      dialog --infobox "Customization finished...." 3 30 ; sleep 2
-            ;;
-        6)  
-            # Confirmo el borrado del emulador y los parches
-			# Se borran las carpetas 'openMSX' (emulador) y '.openMSX' (configuraciones, roms y scripts)
-			# Como puedes comprobar vuelvo a usar un minibloque de case
+        5)
+            # INSTALL DRWH0'S MOD SPANISH TRANLATION (CURRENT USER ONLY)
 			
-			dialog --title "Confirm deletions of files   " \
-            --backtitle "Deletion of openMSX TSX Advanced Linux Mod" \
-            --yesno 'Delete openMSX binaries mods and GIT files?' 7 50
+            # CASE Miniblock for question about which version you want to translate
+
+			# Only works with an already installed/compiled openMSX
+
+			dialog --title "Spanish translation package + mod (ESC to cancel)" \
+			--backtitle "Spanish additional translation and patches by DrWh0" \
+            --yesno 'Are you installing over a openMSX TSX Advanced???' 5 60
+
+            # Here I check the results of "yesno" text dialog
+            # 0 means you selected [yes] and install the translation for openMSX TSXAdvanced.
+            # 1 means you selected [no] and install the translation for official openMSX.
+            # 255 means you pressed [ESC] and cancel the installation and return to main menu.
+            # I reuse this routine in the program to confirm deletion of installed files
+			# I do this in modules instead function in order to use it externally for education reasons
+            # Additonally I delete the preexistent TCL scripts in user folder in order to avoid conflicts
+
             response=$?
             case $response in
-            0) sudo rm -Rf ~/openMSX | rm -Rf ~/.openMSX | rm -Rf ./fuentes-openMSX
+            0) 
+               rm -Rf ~/.openMSX/share/scripts/*.*
+               (pv -n script-tsxadv.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing custom modifications.." 6 50
+               dialog --infobox "Customization finished...." 3 30 ; sleep 2
+               ;;
+            1) 
+               rm -Rf ~/.openMSX/share/scripts/*.*
+               (pv -n script-normal.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing custom modifications.." 6 50
+               dialog --infobox "Customization finished...." 3 30 ; sleep 2
+               ;;
+            255) 
+               dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+               cd ..
+               ;;
+            esac
             ;;
-            1) ;;
+        6)  
+            # DELETE INSTALLED OPENMSX AND ALL PATCHES            
+			
+            # Confirms the deletion of the emulator and patches
+
+            # 'openMSX' (emulator) & '.openMSX' (configurations, roms & scripts) folders are deleted
+            # If you say <Yes> it deletes files in your profile
+            # If you say <No> openMSX package will be removed and after that it will be deleted manually all installed foldes
+			
+            dialog --title "File deletion (Press <ESC> to cancel..........." \
+            --backtitle "Delete only files in your home directory?????" \
+            --yesno '<Yes> to delete only your files in your user´s folder...
+			<No> Uninstall packages and deletes in whole system.....' 6 60
+            response=$?
+            case $response in
+            0) 
+               #old sudo rm -Rf ~/openMSX | rm -Rf ~/.openMSX | rm -Rf ./fuentes-openMSX
+               rm -Rf ~/openMSX ~/.openMSX ./fuentes-openMSX
+               ;;
+            1) 
+               sudo apt remove openmsx*
+               sudo rm -Rf /usr/bin/openmsx /usr/share/openmsx /bin/openmsx /root/openmsx ~/openMSX ~/.openMSX /root/.openMSX ./fuentes-openMSX 
+               ;;
             255) ;;
             esac
             ;;
         7)  
-            # Verifico que esté el fichero con las roms "systemroms.tar.gz"
-			# Si no está el archivo avisa con 2 mensajes y vuelve
-            # Si está presente descomprime de forma gráfica con mensajes antes y despues de descomprimir y vuelve
-            URL3="http://www.msxarchive.nl/pub/msx/emulator/openMSX/systemroms.zip"
+            # INSTALL AND/OR DOWNLOAD SYSTEMROMS (IF EXISTS)
+			
+            # I define 'URL5' variable in case that there is no "systemroms.tar.gz" file containing system roms so it can download from internet
+            # It checks that exists de zipped file and uncompress it, if not present will be downloaded from internet using the URL providede in 'URL5'
+			# I repeat the declaration of the variable twice for debugging reasons.
+			
+			URL5="http://www.msxarchive.nl/pub/msx/emulator/openMSX/systemroms.zip"
+			
 			if [ -f "systemroms.tar.gz" ];
             then
-            dialog --infobox "System bios files found...................."  3 47 ; sleep 2 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }'
-              (pv -n systemroms.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing system bios files....." 6 50
-            dialog --infobox "System bios files installation completed." 3 45 ; sleep 3
+			URL5="http://www.msxarchive.nl/pub/msx/emulator/openMSX/systemroms.zip"
+            dialog --infobox "File with systemroms found!!..............."  3 47 ; sleep 2 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }'
+              (pv -n systemroms.tar.gz | tar xzf - -C ~/.openMSX) 2>&1 | dialog --gauge "Uncompressing systemroms file......." 6 50
+            dialog --infobox "Systemroms installation completed!!!!!!!!" 3 45 ; sleep 3
 			else
-            dialog --infobox "Can't find file systemroms.tar.gz - Searching online......." 3 63 ; sleep 2
+            dialog --infobox "I cannot find file systemroms.tar.gz - Searching online" 3 63 ; sleep 2
             dialog --infobox "Downloading openMSX roms from internet." 3 43 ; sleep 2
-            wget -t 20 -cO systemroms.zip "$URL3" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading system bios.." 5 100
-            unzip systemroms.zip -d ~/.openMSX/share/systemroms 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Uncompressing MSX rom files" 5 100
-            dialog --infobox "Roms uncompressed and installed" 3 36; sleep 2
+            wget -t 20 -cO systemroms.zip "$URL5" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading system bios....." 5 100
+            unzip systemroms.zip -d ~/.openMSX/share/systemroms 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Uncompressing MSX roms....." 5 100
+            dialog --infobox "Roms uncompressed and installed (with luck)....." 3 52 ; sleep 2
 			fi
             ;;           
         8)  
-            # Intento reparar librerias o repositorios dañados
-            dialog --infobox "I am going to clean cache & verify packages" 3 47 ;      sleep 2
-                        clear
-                        echo -e "\e[93mTrying to repair failed updates..........................."
-			            echo ""
-			            echo ""
-                        sudo apt update --fix-missing
-                        sleep 3
-            dialog --infobox "I am going to repair apt packages......" 3 43 ;      sleep 2
-                        clear
-                        echo -e "\e[93mTrying to repair damaged packages from your system"                    
-                        sudo apt install --fix-broken
-                        echo ""
-                        echo ""
-                        echo -e "\e[93mIf something failed try repair options again"
-                        sleep 3
-            dialog --infobox "Returning to main menu of the program.." 3 43 ;      sleep 2
+            # REPAIR DAMAGED OR MISSING LIBRARIES (ADVANCED USERS)
+			
+            dialog --infobox "Trying to repair updates first........." 3 43 ; sleep 2
+            clear
+            echo -e "\e[93mTrying to repair possibly failed updates..............."
+            echo ""
+            echo ""
+            sleep 3
+			sudo apt update
+			sudo apt update --fix-missing
+            sleep 3
+            dialog --infobox "Trying to repair apt package files....." 3 43 ; sleep 2
+            clear
+            echo -e "\e[93mTrying to repari damaged packaged on your system........."                     
+            sudo apt install --fix-broken
+			sudo apt update
+            echo ""
+            echo ""
+            echo -e "\e[93mIf something went brong use repair options from menu again..."
+            sleep 3
+            dialog --infobox "Returning to main menu................." 3 43 ; sleep 2
             ;;
         9)  
-            # Instalo git compiladores por si acaso y clono el repositorio oficial
-                        dialog --infobox "Installing GIT & dependencies. If you are asked to overwrite MORE RECENT packages say NO (press <ENTER>). OTHERWISE YOU CAN POTENTIALLY BREAK YOUR OS........" 6 52 ; sleep 3
-                        clear
-                        echo ""
-                        echo ""                      
-                        echo -e "\e[93mWe are going to install GIT packages, compilers and needed dependencies"
-                        echo -e "\e[93mIF YOU ARE ASKED TO OVERWRITE A MORE RECENT VERSION OF PREVIOUSLY INTALLED"
-                        echo -e "\e[93m PACKAGE, CHOOSE ALWAYS 'NO' UNLESS THAT YOU KNOW WHAT YOU ARE DOING!"
-                        echo ""
-                        echo -e "\e[92mIf you want to cancel the process press CTRL+C right now!"
-                        echo ""
-                        echo ""                      
-                        echo -e "\e[93mInstalling packages..........."
-                        echo ""
-                        echo ""                      
-                        sudo apt install git gcc make g++ libfreetype6-dev libglew-dev libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev tcl-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev
-                        echo ""
-                        echo ""
-                        echo -e "\e[93mIf something went wrong use repair options at main menu and repeat the process"
-                        echo ""
-                        echo ""
-                        sleep 3
-                        clear
+            # INSTALL PACKAGES, COMPILES & INSTALL OFFICIAL OPENMSX
 
-            # Aqui me pongo a realizar un git clone del repositorio (va a tardar un buen rato)"
-            # la orden original del manual de compilado es git clone https://github.com/openMSX/openMSX.git openMSX
+            # "paquetes2" variable contains the name of packages needed to compile and execute all openMSX variants
+			# Those are already installed with option 1 but if the user didn´t then is verified and installed again is needed.
 
-                        git clone https://github.com/openMSX/openMSX.git fuentes-openMSX 
-                        sleep 3
-                        cd "fuentes-openMSX"
-                        clear
-                        dialog --infobox "GIT cloned - Checking process started" 3 43 ; sleep 2
-                        clear 
-                        echo -e "\e[93mVerifying dependencies......."
-                        echo ""
-                        ./configure >result-check.txt
-
-            # Muestro el contenido del resultado de verificar dependencias
-
-                        dialog  --textbox result-check.txt 20 80
-                        clear
-
-            # Tras bajar e instalar git doy la opcion si compilar o no
-		    
-            clear
-			dialog --title "Compile downloaded source code? " \
-            --backtitle "Compilation and installation menu" \
-            --yesno 'Compile downloaded source code from GIT repository? ' 7 60
-
-            # Aqui verifico el resultado del codigo de estado de yesno
-            # 0 indica que pinchaste en [si].
-            # 1 indica que pinchaste en [no].
-            # 255 indica que pinchaste en [Esc].
-            # Esta rutina la empleo más adelante para confirmar el borrado de lo instalado
-			# Lo hago modularmente en vez de crear una función para permitir su uso externamente
-			# a modo educativo
+            paquetes2='dialog pv unzip libfreetype6 libfreetype6-dev libglew2.1 libglew-dev tcl8.6 tcl8.6-dev libsdl2-ttf-dev libsdl2-dev pv unzip git gcc make g++ libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev'
 			
-############################################################################
-#     COMIENZO MINIBLOQUE DE CASE SECUNDARIO PARA CONFIRMAR COMPILACION    #
-############################################################################
+            if ! dpkg -s $paquetes2 >/dev/null 2>&1; 
+            then
+            clear
+            echo ""
+            echo ""
+            echo ""
+            echo -e "\e[91mESSENTIAL PACKAGES ARE NOT PRESENT - YOU DID NOT CHOOSE OPTION 1!"
+            echo ""			
+            echo -e "\e[93mAnyway we are going to install..."		
+            echo ""			
+            echo -e "\e[93mBUT FIRST WE ARE GOING TO VERIFY AND REPAIR YOUR PACKAGES FOR SAFETY"
+            echo ""
+            sleep 2
+            sudo apt update
+            sudo apt install --fix-broken 
+            sudo apt update --fix-missing
+            echo ""
+            echo "\e[92m IF SOMETHING WENT WRONG REPAIR AND REINSTALL PACKAGES (OPTION 1)"
+            echo ""
+            sleep 2
+            clear
+            echo ""
+            echo -e "\e[93mProcess finished starting installation........"
+            echo ""
+            echo ""
+            echo ""
+            sudo apt install -y $paquetes2
+            echo ""
+            echo "\e[92m IF SOMETHING WENT WRONG REPAIR AND REINSTALL PACKAGES (OPTION 1)"
+            echo ""
+            sleep 3
+            clear
+            fi 
+            sleep 3
+            clear
+            dialog --infobox "All existing sources will be deleted and updated GIT will be cloned....
+			
+		   If existing packages are more recent is recommended to choose <N> and <ENTER>.....
+			
+		   If you choose <YES> your system *may* be damaged, and may not start or work correctly" 10 52 ; sleep 3
+            
+            # Here I start with a git clone from official openMSX repository after erasing the old sources folder if existed
+            # After clone will show a textbox with the contents of the verification of dependencies in "result-check.txt"
+			
+			clear
+            rm -Rf ./fuentes-openMSX			   
+			git clone https://github.com/openMSX/openMSX.git fuentes-openMSX 
+            sleep 3
+            clear
+            echo ""
+            cd "fuentes-openMSX"
+            dialog --infobox "Cloning finished - Starting to verify" 3 43 ; sleep 2
+            clear 
+            echo -e "\e[93mVerifying dependencies........."
+            echo ""
+            ./configure >result-check.txt
+            
+            dialog  --textbox result-check.txt 20 80
+            clear
+
+            # Afte GIT installation and downloading the sources I ask for starting or not the compilation
+            # 0 indicates you selected [yes] and start the compilation.
+            # 1 indicates you selected [no] and cancel the proceess because something went wrong or simply was a mistake
+            # 255 indicates [Esc] same effect as 1.
+            
+            clear
+            dialog --title "Compile downloaded source code?....." \
+            --backtitle "Compilation & Installation menu.." \
+            --yesno 'Compile downloaded source code from the GIT?' 7 60
+
+            # Starts secundary case miniblock to confirm compilation
 			
             response2=$?
             case $response2 in
-            0)         
-                 cd "fuentes-openMSX"						
-                 clear
-                 dialog --infobox "Proceeding to source code compilation in 2 seconds.." 3 43 ; sleep 2
-                 clear
-                 echo -e "\e[93mCompilating (it will take a long time, be patient)"
-                 echo ""
-                 sudo make install > resultado.txt
-                 dialog  --textbox resultado.txt 20 80
-                 dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
-                 cd ..
-                 ;;
-            1)   
-                 dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
-                 cd ..
-                 ;;
+            0)
+                cd "fuentes-openMSX"						
+                clear
+                dialog --infobox "Proceeding to compilation process in 2 seconds......" 3 43 ; sleep 2
+                clear
+                echo -e "\e[93mCompiling.. (this will take a lot of time , be patient)"
+                echo ""
+                sudo make install > resultado.txt
+                dialog  --textbox resultado.txt 20 80
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
+            1)  
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
             255) 
-                 dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
-                 cd ..
-                 ;;
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
             esac
             ;;
+        10)
+            # EXECUTE INSTALLED OPENMSX COMPILED FROM GIT
 			
-############################################################################
-#    FINAL DE MINIBLOQUE DE CASE SECUNDARIO PARA CONFIRMAR COMPILACION     #
-############################################################################
-
-         10)
-            # Ejecuto el programa compilado para ver que todo este OK
             openmsx
             ;;
-
-         11)  
-            # Ejecuto funciones de raspberry pi
-            # Instalo git compiladores por si acaso y clono el repositorio oficial
-
-                        dialog --infobox "Installing GIT & dependencies. If you are asked to overwrite MORE RECENT packages say NO (press <ENTER>). OTHERWISE YOU CAN POTENTIALLY BREAK YOUR OS........" 6 52 ; sleep 3
-                        clear
-                        echo ""
-                        echo ""                      
-                        echo -e "\e[93mWe are going to install GIT packages, compilers and needed dependencies"
-                        echo -e "\e[93mIF YOU ARE ASKED TO OVERWRITE A MORE RECENT VERSION OF PREVIOUSLY INTALLED"
-                        echo -e "\e[93m PACKAGE, CHOOSE ALWAYS 'NO' UNLESS THAT YOU KNOW WHAT YOU ARE DOING!"
-                        echo ""
-                        echo -e "\e[92mIf you want to cancel the process press CTRL+C right now!"
-                        echo ""
-                        echo ""                      
-                        echo -e "\e[93mInstalling packages..........."
-                        echo ""
-                        echo ""                      
-                        sudo apt install git gcc make g++ libfreetype6-dev libglew-dev libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev tcl-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev
-                        echo ""
-                        echo ""
-                        echo -e "\e[93mIf something went wrong use repair options at main menu and repeat the process"
-                        echo ""
-                        echo ""
-                        sleep 3
-                        clear
-
-            # Aqui me pongo a realizar un git clone del repositorio (va a tardar un buen rato)"
-            # la orden original del manual de compilado es git clone https://github.com/openMSX/openMSX.git openMSX
-
-                        git clone https://github.com/openMSX/openMSX.git fuentes-openMSX 
-                        sleep 3
-                        cd "fuentes-openMSX"
-                        clear
-                        dialog --infobox "GIT cloned - Checking process started" 3 43 ; sleep 2
-                        clear 
-                        echo -e "\e[93mVerifying dependencies......."
-                        echo ""
-                        ./configure >result-check.txt
-
-            # Muestro el contenido del resultado de verificar dependencias
-
-                        dialog  --textbox result-check.txt 20 80
-                        clear
-
-            # Tras bajar e instalar git doy la opcion si compilar o no
-		    
-                        clear
-                        dialog --title "Compile downloaded source code? " \
-            --backtitle "Compilation and installation menu" \
-            --yesno 'Compile downloaded source code from GIT repository? ' 7 60
-
-            # Aqui verifico el resultado del codigo de estado de yesno
-            # 0 indica que pinchaste en [si].
-            # 1 indica que pinchaste en [no].
-            # 255 indica que pinchaste en [Esc].
-            # Esta rutina la empleo más adelante para confirmar el borrado de lo instalado
-			# Lo hago modularmente en vez de crear una función para permitir su uso externamente
-			# a modo educativo
+        11)  
+            # OFFICIAL FAST COMPILATION FOR PC (USE THIS IN PI/ARM)
 			
-############################################################################
-#     COMIENZO MINIBLOQUE DE CASE SECUNDARIO PARA CONFIRMAR COMPILACION    #
-############################################################################
+            # Execute Raspberry PI functions
+            # Installks git and compilers packages firs to clone the official GIT
+
+            dialog --infobox "Installing GIT & dependencies. If you are asked to overwrite a more recent preinstalled package say always NO (press <ENTER>).   YOU CAN BREAK YOUR OPERATING SYSTEM............" 6 52 ; sleep 3
+            clear
+            echo ""
+            echo ""                      
+            echo -e "\e[93mI am start to install packages GIT system, compiler & dependenciess"
+            echo -e "\e[93mIF ASKED TO OVERWRITE A NEWER PACKAGE"
+            echo -e "\e[93m SAY ALWAYS NO (FOR SAFERTY) UNLES YOU KNOW WHAT ARE YOU DOING!!"
+            echo ""
+            echo -e "\e[92mPress CTRL+C to cancel and return to main menu.."
+            echo ""
+            echo ""                      
+            echo -e "\e[93mInstalling packages..........."
+            echo ""
+            echo ""                      
+            sudo apt install dialog pv unzip libfreetype6 libfreetype6-dev libglew2.1 libglew-dev tcl8.6 tcl8.6-dev libsdl2-ttf-dev libsdl2-dev pv unzip git gcc make g++ libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev
+            echo ""
+            echo ""
+            echo -e "\e[93mIf something went wrong use repair options at main menu"
+            echo ""
+            echo ""
+            sleep 3
+            clear
+            
+            # Start git clone of the repository (it will take a long time)
+			# We delete old sources if present
+            # Proceeding to git the official git using official compilation rules
+			# After that it shows a textbox with the results of dependencies checking tests
+            
+			rm -Rf ./fuentes-openMSX			   
+            git clone https://github.com/openMSX/openMSX.git fuentes-openMSX 
+            sleep 3
+            clear
+            echo ""
+            cd "fuentes-openMSX"
+            dialog --infobox "Clonned finished - Verifying.." 3 43 ; sleep 2
+            clear 
+            echo -e "\e[93mVerifying dependencies...."
+            echo ""
+            ./configure >result-check.txt
+            dialog  --textbox result-check.txt 20 80
+            clear
+            
+            # Tras instalar el git y clonar el repositorio paso a confirmar la compilación
+            
+            clear
+            dialog --title "Compile downloaded source code????? " \
+            --backtitle "Installation & Compilation menu.." \
+            --yesno 'Compile source code downloaded from the GIT?' 7 60
+            
+            # Once more I verify the results of yesno status code
+            # 0 means [yes] and ask if compile.
+            # 1 means [no] and returns to main menu.
+            # 255 means [Esc] and abort the process.
+            # Made modular for external use
+            
+            # START OF SECUNDARY CASE MINIBLOCK
 			
             response2=$?
             case $response2 in
             0)         
                  cd "fuentes-openMSX"						
                  clear
-                 dialog --infobox "Proceeding to source code compilation in 2 seconds.." 3 43 ; sleep 2
+                 dialog --infobox "Proceeding to compilation process in 2 seconds......" 3 43 ; sleep 2
                  clear
-                 echo -e "\e[93mCompilating (it will take a long time, be patient)"
+                 echo -e "\e[93mCompiling (this take a lot of time upto 5 hours in PI, be patient)"
                  echo ""
                  sudo make install
-                 dialog --infobox "Finished, returning to main menu...." 3 43 ; sleep 2
+                 dialog --infobox "Process finished returning.........." 3 43 ; sleep 2
                  cd ..
                  ;;
-            1)   
-                 dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
+            1)  
+                 dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
                  cd ..
                  ;;
             255) 
-                 dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
+                 dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
                  cd ..
                  ;;
             esac
             ;;
-         12)  
-            # Lista el fichero de ayuda
+        12)  
+            # OPENMSX TSXADV FAST COMPILATION FOR PC (USE THIS IN PI/ARM)
+            		
+            # Instalo el paquete git, los compiladores necesarios y clono el repositorio oficial borrando antes el presente
+            # Muestro información de lo que hago y doy la opción de cancelar con CTRL+C espero 3 segundos y borro fuentes viejas
             
-			dialog  --textbox README-ENGLISH 20 80
-			clear
+            # La variable "paquetes2" indica que librerias se necesitan para compilar y ejecutar todas las versiones de openMSX
+            # Se instala antes desde la opción 1 pero en caso de que usuario no lo haya hecho se verifica e instala de nuevo
+            
+            paquetes2='dialog pv unzip libfreetype6 libfreetype6-dev libglew2.1 libglew-dev tcl8.6 tcl8.6-dev libsdl2-ttf-dev libsdl2-dev pv unzip git gcc make g++ libao-dev libogg-dev libpng-dev liboggz2 libtheora-dev libxml2-dev libvorbis-dev libsdl2-dev libsdl2-dev libsdl2-gfx-dev libsdl2-ttf-dev'
+            
+            if ! dpkg -s $paquetes2 >/dev/null 2>&1; 
+            then
+            clear
+            echo ""
+            echo ""
+            echo ""
+            echo -e "\e[91mESSENTIAL PACKAGES ARE NOT PRESENT - YOU DID NOT CHOOSE OPTION 1!"
+            echo ""			
+            echo "Vamos a instalarlos.............."			
+            echo ""			
+            echo -e "\e[93mBUT FIRST WE ARE GOING TO VERIFY AND REPAIR YOUR PACKAGES FOR SAFETY"
+            echo ""
+            sleep 2
+            sudo apt update
+            sudo apt install --fix-broken 
+            sudo apt update --fix-missing
+            echo ""
+            echo "\e[92m IF SOMETHING WENT WRONG REPAIR AND REINSTALL PACKAGES (OPTION 1)"
+            echo ""
+            sleep 2
+            clear
+            echo ""
+            echo -e "\e[93mAnyway we are going to install..."
+            echo ""
+            echo ""
+            echo ""
+            sudo apt install -y $paquetes2
+            echo ""
+            echo "\e[92m IF SOMETHING WENT WRONG REPAIR AND REINSTALL PACKAGES (OPTION 1)"
+            echo ""
+            sleep 3
+            clear
+            fi 
+            
+            # We proceed with installation/compilation
+            
+            clear
+            dialog --infobox "Old existing source codes will be deleted & updated GIT will be cloned.
+            
+            If existing packages are newer is highly recommended to press key <N> and <ENTER>.
+            
+            Otherwise you *could* damage your OS and render it completely unusable or not boot!!." 10 52 ; sleep 3
+            rm -Rf ./fuentes-openMSX			   
+            
+            # Starting un git clone of TSXADVANCED repository after deleting the folder with old sources
+            # On completion the final results of verification will be displayed from the file "result-check.txt"
+            
+            git clone https://github.com/imulilla/openMSX_TSXadv/ fuentes-openMSX 
+            sleep 3
+            clear
+            echo ""
+            cd "fuentes-openMSX"
+            dialog --infobox "Clonning finished - Starting verify.." 3 43 ; sleep 2
+            clear 
+            echo -e "\e[93mVerifying dependencies......."
+            echo ""
+            ./configure >result-check.txt
+            
+            dialog  --textbox result-check.txt 20 80
+            clear
+            
+            # Once more I verify the results of yesno status code
+            # 0 means [yes] and ask if compile.
+            # 1 means [no] and returns to main menu.
+            # 255 means [Esc] and abort the process.
+            # Made modular for external use
+            
+            clear
+            dialog --title "Compile downloaded source code????? " \
+            --backtitle "Compilation & installation menu.." \
+            --yesno 'Compile source code downloaded from the GIT?' 7 60
+            
+            # START ANOTHER SECUNDARY CASE MINIBLOCK TO CONFIRM COMPILATION
+            
+            response2=$?
+            case $response2 in
+            0)
+                cd "fuentes-openMSX"						
+                clear
+                dialog --infobox "Procediento al proceso de compilación en 2 segundos." 3 43 ; sleep 2
+                clear
+                echo -e "\e[93mCompilando (esto va a tardar bastante, se paciente)"
+                echo ""
+                sudo make install
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
+            1)  
+                dialog --infobox "Returning to main menu............" 3 43 ; sleep 2
+                cd ..
+                ;;
+            255) 
+                dialog --infobox "Returning to main menu.............." 3 43 ; sleep 2
+                cd ..
+                ;;
+            esac
             ;;
-
         13) 
-            # Rehabilito el uso de CTRL+C y salgo del programa tras mostrar una pantalla de agradecimiento
+            # READ HELP FILE		
+		    
+            # Opens a textbox with help contained in the file README-XXXXX
 
-            trap 2 
-            dialog --infobox "Exiting - Thanks for using my program" 3 42;      sleep 2
+            dialog  --textbox README-SPANISH 20 80
+            ;;
+        14)
+            # EXIT FROM THIS PROGRAM
+			
+            # Reenable CTRL+C  function and exits from program after showing a text screen
+
+            trap 2 # If we add "| kill -9 $PPID" we close the entire session
+            dialog --infobox "Exiting - Thanks for using my program!!" 3 43 ;      sleep 2
             clear
             exit
-            ;;
-
+			;;
 esac
 done
 
 
 #############################################################
-#             FINAL DE BLOQUE DEL MENU PRINCIPAL            #
+#                                                           #
+#             END OF MAIN MENU BLOCK............            #
+#                                                           #
+#  FEATURES TO ADD IN THE FUTURE:                           #
+#                                                           #
+#  1.- DESKTOP ICONS FOR EN GNOME/CINNAMON/KDE/XFCE         #
+#                                                           #
+# Create a text file ".desktop" and copy using the command: #
+#                                                           #
+# sudo cp *.desktop "/usr/share/applications/" (path)       #
+#                                                           #
+# Create a couple of dialog boxes for new functions         #
+#                                                           #
+# dialog --infobox "Shorcut created" 3 25 ; sleep 2         #
+#                                                           #
+#  2.- ERROR CODE EXCEPTION CAPTURE DOWNLOADING FILES...    #
+#                                                           #
+# Pending to implement an exception capture for wget        #
+# Like catiching HTTP Response Code (404/200):              #
+# wget --server-response -q -o wgetOut $URL                 # 
+# y capture the result of _wgetHttpCode                     #
+#                                                           #
+#  3.- GTK+/GLADE FRONTEND                                  #
+#                                                           #
+# Pending to port the code to full graphic mode....         #
+#                                                           #
 #############################################################
-
-
-############################################################################
-#              CODIGO DE PRUEBAS PARA FUTURAS FUNCIONALIDADES              #
-############################################################################
-
-# Aquí abajo especifico algunas ideas para mejorar la funcionalidad:
-
-############################################################################
-#   CREACION DE ACCESOS DIRECTOS AL SCRIPT DESDE GNOME/CINNAMON/KDE/XFCE   #
-############################################################################
-
-# Mas codigo viejo (accesos directos)
-# Basicamente es copiar un .desktop hecho para la ocasión y un infodialog
-# sudo cp *.desktop /usr/share/applications/ <---Pendiente de ruta y archivo
-# dialog --infobox "Acceso directo creado" 3 25 ; sleep 2
-
-############################################################################
-#              CAPTURA DE ERRORES EN LA DESCARGA DE LOS ARCHIVOS           #
-############################################################################
-
-# Tengo pendiente de implementar captura de excepciones para wget
-# Tengo pensado o interceptar el HTTP Response Code (404/200) algo como:
-# wget --server-response -q -o wgetOut $URL y pillar el _wgetHttpCode
-#
-# O bien hacer guarrerias al estilo de:
-# if wget -q "$URL" > /dev/null; then loquesea
-# 
-# Si veo que este script tiene aceptación tengo pensado ampliar mucho sus 
-# funcionalidades y portar más adelante a un frontend "potito" en GTK
-# Pero si al final solo lo bajan 4 gatos pues no tiene mucho sentido
-
-
-
-
-
-
-
