@@ -248,10 +248,16 @@ Changes (Changelog)
 * No more included dependencies (faster development more compability)
 
 
+09/22/2020
+
+* Changed default decompression path of downloaded systemroms
+* Added conditional for not always forcing package repairs
+* Confirmed operation with Pi 4 (Ubuntu Mate 20.04)
+
+
 TODO (Planned features/bugfixes/changes for next version)
 =========================================================
 
-* More Raspberri Pi testing
 * Graphical mode
 
 

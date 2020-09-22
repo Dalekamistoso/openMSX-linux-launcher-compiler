@@ -1,4 +1,4 @@
-openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla Beta 3
+﻿openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla Beta 3
 =======================================================================
 
 
@@ -268,11 +268,15 @@ Cambios (Changelog)
 * Los scripts de traducción y mod se incluyen con este script
 * No más dependencias locales incluidas (por compatibilidad/desarrollo)
 
+22/09/2020
+
+* Cambiada la ruta de descompresión de las systemroms bajadas de internet
+* Añadido condicional para no forzar la verificación de paquetería siempre
+* Confirmada compatibilidad con Pi 4 en Ubuntu Mate 20.04
+
 
 PENDIENTE (Cosas varias previstas para la proxima version)
 ==========================================================
-
-* Pruebas más extensas en Raspberri Pi bajo Ubuntu 20.04
 * Modo gráfico
 
 
