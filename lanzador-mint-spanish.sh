@@ -82,6 +82,11 @@ echo -e "\e[93mProceso terminado ahora vamos a instalar......"
 echo ""
 sudo apt install -y $paquetes
 clear
+else
+clear
+echo ""
+echo -e "\e[93mTodo parece estar bien iniciando......"
+echo ""
 fi 
 
 # INICIO DE BLOQUE DEL MENU PRINCIPAL            
@@ -383,7 +388,7 @@ case $CHOICE in
             dialog --infobox "No encuentro el fichero systemroms.tar.gz - Buscando online" 3 63 ; sleep 2
             dialog --infobox "Descargando openMSX roms de internet..." 3 43 ; sleep 2
             wget -t 20 -cO systemroms.zip "$URL5" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Descargando bios del sistema" 5 100
-            unzip systemroms.zip -d ~/.openMSX/share/systemroms 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Descomprimiendo roms de MSX" 5 100
+            unzip systemroms.zip -d ~/.openMSX/share 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Descomprimiendo roms de MSX" 5 100
             dialog --infobox "Roms descomprimidas e instaladas (con suerte XD)" 3 52 ; sleep 2
 			fi
             ;;           
@@ -694,7 +699,7 @@ case $CHOICE in
             0)
                 cd "fuentes-openMSX"						
                 clear
-                dialog --infobox "Procediento al proceso de compilación en 2 segundos." 3 43 ; sleep 2
+                dialog --infobox "Procediendo al proceso de compilación en 2 segundos." 3 43 ; sleep 2
                 clear
                 echo -e "\e[93mCompilando (esto va a tardar bastante, se paciente)"
                 echo ""
@@ -747,6 +752,8 @@ done
 # Crear cuadro de diálogo para informar y poco más          #
 # dialog --infobox "Acceso directo creado" 3 25 ; sleep 2   #
 #                                                           #
+#                                                           #
+#                                                           #
 #  2.- CAPTURA DE ERRORES EN LA DESCARGA DE LOS ARCHIVOS    #
 #                                                           #
 # Pendiente implementar captura de excepciones para wget    #
@@ -754,8 +761,10 @@ done
 # wget --server-response -q -o wgetOut $URL                 # 
 # y capturar el resultado del _wgetHttpCode                 #
 #                                                           #
+#                                                           #
+#                                                           #
 #  3.- FRONTEND HECHO EN GTK+/GLADE                         #
 #                                                           #
-# Pendiente portar el código a modo gráfico puro            #
 #                                                           #
+# Pendiente portar el código a modo gráfico puro            #
 #############################################################

@@ -6,7 +6,7 @@
 #  OPENMSX & OPENMSX TSXADVANCED LAUNCHER+COMPILER          #
 # =================================================         #
 #                                                           #
-# FEATURES INCLUDED:                                        #
+# FUNCIONES INCLUIDAS:                                      #
 #                                                           #
 #  1.- COMPILES & INSTALLS EXECUTABLE FROM MOST RECENT GIT  #
 #                                                           #
@@ -82,6 +82,11 @@ echo -e "\e[93mProcess finished, starting install process...."
 echo ""
 sudo apt install -y $paquetes
 clear
+else
+clear
+echo ""
+echo -e "\e[93mEverything is OK starting......"
+echo ""
 fi 
 
 # START OF MAIN MENU BLOCK
@@ -110,7 +115,7 @@ OPTIONS=(1 "Install needed dependencies for compilation and execution"
          9 "Install packages, compiles & install official openMSX"
          10 "Execute installed openMSX compiled from GIT"
          11 "Official fast compilation for PC (Use this in PI/ARM)"
-         12 "openMSX TSXADV fast compilation for PC (Use this in PI/ARM)"
+         12 "openMSXTSXADV fast compilation for PC (Use this in PI/ARM)"
          13 "Read help file"
          14 "Exit from this program"
 )
@@ -383,7 +388,7 @@ case $CHOICE in
             dialog --infobox "I cannot find file systemroms.tar.gz - Searching online" 3 63 ; sleep 2
             dialog --infobox "Downloading openMSX roms from internet." 3 43 ; sleep 2
             wget -t 20 -cO systemroms.zip "$URL5" 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Downloading system bios....." 5 100
-            unzip systemroms.zip -d ~/.openMSX/share/systemroms 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Uncompressing MSX roms....." 5 100
+            unzip systemroms.zip -d ~/.openMSX/share 2>&1 | stdbuf -o0 awk '/[.] +[0-9][0-9]?[0-9]?%/ { print substr($0,63,3) }' | dialog --gauge "Uncompressing MSX roms....." 5 100
             dialog --infobox "Roms uncompressed and installed (with luck)....." 3 52 ; sleep 2
 			fi
             ;;           
@@ -606,7 +611,7 @@ case $CHOICE in
             esac
             ;;
         12)  
-            # OPENMSX TSXADV FAST COMPILATION FOR PC (USE THIS IN PI/ARM)
+            # OPENMSXTSXADV FAST COMPILATION FOR PC (USE THIS IN PI/ARM)
             		
             # Instalo el paquete git, los compiladores necesarios y clono el repositorio oficial borrando antes el presente
             # Muestro información de lo que hago y doy la opción de cancelar con CTRL+C espero 3 segundos y borro fuentes viejas
@@ -735,30 +740,32 @@ done
 
 
 #############################################################
+#             FINAL DE BLOQUE DEL MENU PRINCIPAL            #
 #                                                           #
-#             END OF MAIN MENU BLOCK............            #
+#  COSAS PENDIENTES DE IMPLEMENTAR:                         #
 #                                                           #
-#  FEATURES TO ADD IN THE FUTURE:                           #
+#  1.- CREAR ACCESOS DIRECTOS EN GNOME/CINNAMON/KDE/XFCE    #
 #                                                           #
-#  1.- DESKTOP ICONS FOR EN GNOME/CINNAMON/KDE/XFCE         #
+# Crear un fichero de texto ".desktop" y copiarlo mediante: #
 #                                                           #
-# Create a text file ".desktop" and copy using the command: #
+# sudo cp *.desktop "/usr/share/applications/" (ruta)       #
 #                                                           #
-# sudo cp *.desktop "/usr/share/applications/" (path)       #
+# Crear cuadro de diálogo para informar y poco más          #
+# dialog --infobox "Acceso directo creado" 3 25 ; sleep 2   #
 #                                                           #
-# Create a couple of dialog boxes for new functions         #
 #                                                           #
-# dialog --infobox "Shorcut created" 3 25 ; sleep 2         #
 #                                                           #
-#  2.- ERROR CODE EXCEPTION CAPTURE DOWNLOADING FILES...    #
+#  2.- CAPTURA DE ERRORES EN LA DESCARGA DE LOS ARCHIVOS    #
 #                                                           #
-# Pending to implement an exception capture for wget        #
-# Like catiching HTTP Response Code (404/200):              #
+# Pendiente implementar captura de excepciones para wget    #
+# Algo como interceptar el HTTP Response Code (404/200):    #
 # wget --server-response -q -o wgetOut $URL                 # 
-# y capture the result of _wgetHttpCode                     #
+# y capturar el resultado del _wgetHttpCode                 #
 #                                                           #
-#  3.- GTK+/GLADE FRONTEND                                  #
 #                                                           #
-# Pending to port the code to full graphic mode....         #
 #                                                           #
+#  3.- FRONTEND HECHO EN GTK+/GLADE                         #
+#                                                           #
+#                                                           #
+# Pendiente portar el código a modo gráfico puro            #
 #############################################################
