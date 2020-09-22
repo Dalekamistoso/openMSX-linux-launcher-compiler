@@ -75,14 +75,14 @@ Cómo usar este script:
 
 Desde consola:
 
-./lanzador.sh        (Si usas Mint/Ubuntu)
+./lanzador-mint-spanish.sh        (Si usas Mint/Ubuntu)
 ./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
 
 Si no se lanzara y solo se mostrase el fichero asegurate de hacer: 
 
 Desde consola: 
 
-chmod +x ./lanzador.sh        (Si usas Mint/Ubuntu)
+chmod +x ./lanzador-mint-spanish.sh (Si usas Mint/Ubuntu)
 chmod +x ./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
 
 Y ya te funcionará
@@ -273,7 +273,7 @@ Cambios (Changelog)
 * Cambiada la ruta de descompresión de las systemroms bajadas de internet
 * Añadido condicional para no forzar la verificación de paquetería siempre
 * Confirmada compatibilidad con Pi 4 en Ubuntu Mate 20.04
-
+* Ajustes en documentación
 
 PENDIENTE (Cosas varias previstas para la proxima version)
 ==========================================================

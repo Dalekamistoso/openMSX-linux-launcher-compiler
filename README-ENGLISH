@@ -69,14 +69,14 @@ How to use this script:
 
 From console (english):
 
-./lanzador-mint-english.sh (If you use Mint / Ubuntu)
+./launcher-mint-english.sh (If you use Mint / Ubuntu)
 ./launcher-fedora-english.sh (If you use Fedora)
 
 If it did not launch and only the file was displayed make sure to do:
 
 From console:
 
-chmod + x ./launcher-mint.sh (If you use Mint / Ubuntu)
+chmod + x ./launcher-mint-english.sh (If you use Mint / Ubuntu)
 chmod + x ./launcher-fedora.sh (If you use Fedora)
 
 And it will work for you
@@ -253,6 +253,7 @@ Changes (Changelog)
 * Changed default decompression path of downloaded systemroms
 * Added conditional for not always forcing package repairs
 * Confirmed operation with Pi 4 (Ubuntu Mate 20.04)
+* Corrections on help file
 
 
 TODO (Planned features/bugfixes/changes for next version)
