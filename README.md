@@ -5,13 +5,21 @@
 Un sencillo programa de menú con "dialog" que permite:
 
 1.- Descargar y compilar las últimas versiones de openMSX y openMSX TSX Advanced desde GIT
+
 2.- Descargar e instalar todas las systemroms necesarias para la emulación
+
 3.- Descargar e instalar todas las dependencias necesarias
+
 4.- Reparar paquetes dañados y desinstalar totalmente openMSX en caso de daños en el gestor de paquetes
+
 5.- Instalar traducción a español tanto de openMSX como openMSX TSX y openMSX TSX Advanced
+
 6.- Versiones en inglés y español
+
 7.- Código comentado en inglés y español
+
 8.- Modo pseudo portable
+
 
 El código se ha hecho lo más sencillo y modular posible para que sirva como herramienta de aprendizaje
 
