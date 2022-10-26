@@ -21,22 +21,38 @@ Un sencillo programa de menú con "dialog" que permite:
 8.- Modo pseudo portable
 
 
+
 El código se ha hecho lo más sencillo y modular posible para que sirva como herramienta de aprendizaje
+
 
 100% código abierto y gratuito
 
+
+
 --- ENGLISH DESCRIPTION ---
+
+
 
 A simple menu program with "dialog" that allows:
 
+
 1.- Download and compile the latest versions of openMSX and openMSX TSX Advanced from GIT
+
 2.- Download and install all the systemroms necessary for the emulation
+
 3.- Download and install all the necessary dependencies
+
 4.- Repair damaged packages and completely uninstall openMSX in case of damage in package manager
+
 5.- Install Spanish translation for openMSX and openMSX TSX and openMSX TSX Advanced
+
 6.- Versions in English and Spanish
+
 7.- Commented code in English and Spanish
+
 8.- Pseudo portable mode
+
+
 
 The code has been made as simple and modular as possible to serve as a learning tool
 
