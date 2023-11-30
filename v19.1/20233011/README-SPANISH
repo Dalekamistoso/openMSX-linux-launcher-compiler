@@ -1,0 +1,291 @@
+﻿openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla (30/11/2023)
+=============================================================================
+
+
+*** SI USAS ESTE SCRIPT EN RASPBERRY PI MIRA LAS NOTAS ADICIONALES ***
+
+
+Introducción:
+=============
+
+He escrito este script para proporcionar la mejor emulación de MSX 
+posible en estos momentos para GNU/Linux y como ejemplo para ayudar al 
+desarrollo de scripts.
+
+Adicionalmente se ha facilitado al máximo el uso e instalación para 
+todo tipo de usuarios.
+
+Se incluyen un montón de las mejoras previstas para la próxima versión 
+oficial de openMSX pero además este paquete consta de las siguientes 
+características:
+
+01.- Script para instalación pseudo portable sólo en perfil del usuario
+02.- Auto instalación de dependencias del propio menú sobre la marcha
+03.- Instalación opcional del parche de mejoras y traducción del OSD
+04.- Auto descarga e instalación de las "systemroms" en el emulador
+05.- Desinstalación de todas las versiones de openMSX incluso las rotas
+06.- Compila e instala la última versión de openMSX desde su GIT
+07.- Soporte de archivos en formato .TSX (openMSX TSX fork)
+08.- Soporte IPS integrado en fichero contenedor TSX (TSX Advanced)
+09.- Modo modular con comentarios para el aprendizaje de scripting
+10.- MOD y traducción transparentes (se pueden usar en Raspbian)
+11.- Soportado Linux Mint 20, Ubuntu 20.04 LTS (incluso Raspberry PI)
+12.- Clona, compila e instala desde los GIT openMSX y openMSX TSXADV
+
+
+
+IMPORTANTE:
+===========
+
+El equipo de openMSX NO TIENE NADA QUE VER CON:
+
+* ESTE SOFTWARE 
+* NI CON LOS FORK CON TSX.
+
+NO LES MOLESTES
+SI ENCUENTRAS UN BUG CONTACTA CON LOS RESPECTIVOS AUTORES
+
+SOLO SE SOPORTA:
+
+* LINUX MINT 21
+* UBUNTU LTS 22.04
+* DERIVADOS DE UBUNTU 22.04
+* RASPBIAN (Sólo con soporte de libglew 2.2)
+
+Posiblemente se soporte en derivados de estas distros
+
+Si quieres soporte para tu distribución debes cambiar las llamadas de 
+tu gestor de paquetes y las dependencias offline para tu distribución,
+si  estás interesado contacta conmigo para que podamos probarlas.
+
+
+Requisitos:
+===========
+
+- Ubuntu 22.04 / Linux Mint 21 (No se ha probado en otras versiones)
+- Derivados de Ubuntu 22.04
+- S.O. de 64 bits (los deb/rpm son x64. Via repositorio debería ir x86)
+- El hardware requerido para instalar las distribuciones mencionadas 
+- Los paquetes: "dialog" "pv" y "unzip" (se autodetectan y se instalan)
+
+
+Cómo usar este script:
+======================
+
+
+Desde consola:
+
+./lanzador-mint-spanish.sh        (Si usas Mint/Ubuntu)
+./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
+
+Si no se lanzara y solo se mostrase el fichero asegurate de hacer: 
+
+Desde consola: 
+
+chmod +x ./lanzador-mint-spanish.sh (Si usas Mint/Ubuntu)
+chmod +x ./lanzador-fedora.sh (Si usas Fedora, versiones del menú antiguas)
+
+Y ya te funcionará
+
+Desde el entorno gráfico:
+
+Si usas GNOME 3 tendrás que cambiar antes el comportamiento del gestor
+de archivos para que pregunte si ejecutar los scripts de texto o si 
+visualizarlos pues por defecto solo abre el editor de texto.
+
+Para cambiar el comportamiento predeterminado:
+
+Abres el gestor de archivos
+ (Pincha arriba a la izquierda en "Actividades"->"Archivos")
+
+Cuando lo tengas abierto:
+
+Botón de las 3 rayitas en la barra superior a la derecha
+ Pincha en ->Comportamiento y seleccionar:
+
+- Preguntar que hacer (marca la casilla y luego pulsa cerrar)
+
+Al pulsar doble click te preguntará si ejecutarlo o visualizarlo:
+
+ ESCOGER SIEMPRE:
+
+"EJECUTAR EN UN TERMINAL"
+
+En el caso de que pincharas solo en "ejecutar" no te aparecerá nada ya
+que se entiende por un terminal=false y como es un programa de terminal
+no se mostrará.
+
+Si quieres que todo funcione correctamente obedece siempre las 
+instrucciones del script.
+
+Asegurate tambien que tengan los ".sh" los permisos de ejecución:
+
+Para ello:
+
+Botón derecho encima del fichero->Propiedades->Permisos
+
+* Marcar "Permitir ejecutar este archivo como un programa" 
+
+* Seleccionar en TODOS los desplegables en:
+ 
+  "Acceso"->"Lectura y escritura"
+
+
+Algunas notas adicionales:
+==========================
+
+No hay integradas funciones de captura de excepciones todavía
+
+Para acelerar la compilación y evitar posibles fallos en Raspberry
+PI se recomienda encarecidamente cambiar el vm.swapiness a 10
+
+
+Créditos:
+=========
+
+Traducción a español y mod del OSD interno:
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+Script lanzador: 
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+openMSX:
+ andete
+ MBilderbeek
+ mthuurne 
+ Y https://github.com/openMSX/openMSX/graphs/contributors)
+
+openMSX TSX (Fork):
+ NataliaPC 
+ Y (https://github.com/nataliapc/openMSX_TSX/graphs/contributors)
+
+openMSX TSX Advanced (Fork): 
+ imulilla (fork de la versión TSX normal)
+
+Agradecimientos extras:
+
+Paco Gálvez por notificar bugs con ciertas graficas y otros bajo Mint
+Raul (Darkscheiner) por la observación sobre la versión Fedora
+
+
+Notas legales
+=============
+
+* Este software se distribuye tal cual no siendo responsable 
+  de ningún daño o perjuicio causado.
+
+* Este software no tiene garantía de ningún tipo.
+
+* No soy responsable del uso de este software correcto o no.
+
+* La licencia de este software es la misma que openMSX (GPLv2+)
+
+
+Contacto
+=========
+
+DrWh0:
+
+En el MSX.ORG: Usuario drwh0 (https://msx.org/users/drwh0)
+En Twitter: https://twitter.com/Dalekamistoso
+
+imulilla:
+
+En el MSX.ORG: Usuario imulilla https://msx.org/users/imulilla
+En Twitter: https://twitter.com/imulilla
+
+
+Cambios (Changelog)
+===================
+
+03/04/2020 
+
+* Primera versión
+
+04/04/2020 
+
+* Arreglados errores en el instalador de Fedora ya es 100% operativo
+* Eliminado botón redundante de salida en el menú (ambas versiones)
+* Mejoras en la administración de paquetería en Fedora
+* Cambiadas las dependencias locales (Fedora 30)
+* Cambiados los textos en el lanzador de Fedora y Mint/Ubuntu
+* Cambiada la ubicación del fichero de ayuda al directorio del script
+* Cambios en documentación
+
+05/04/2020 
+
+* Arreglado error en la URL de descarga del parche de traducción 
+* Actualizado paquete libGLEW a la v2.1 (algunas GPU necesitan esta)
+* Añadido analisis y reparacion de paquetes dañados antes de instalar
+* Añadidos algunos textos de aviso antes de reparar
+
+
+20/04/2020 
+
+* Arreglados algunos bugs bajo ciertas condiciones
+* Separadas las opciones de reparación
+* Añadida instalación y clonado de código fuente del GIT
+* Añadidas traducciones inglesas (comentarios sin traducir aun)
+
+04/06/2020
+
+* Muchos Colorines en los textos de terminal
+* Añadida visualización de ayuda desde el menú
+* Añadido soporte de instalación de dependencias para compilado
+* Mejoras en clonado y manejo de GIT oficial
+* Añadido soporte de compilación de ejecutables oficiales desde GIT
+* Corregidos unos cuantos errores en textos
+* Añadida opción para futuro soporte de Raspberry Pi
+* Corregidos algunos textos en este fichero
+* Ajustes de formato en este fichero de ayuda
+
+13/06/2020
+
+* Corregidos unos cuantos errores
+* Cambiado el comportamiento de clonado GIT/compilación
+* Reorganizadas las entradas del menú y cambios en sus funciones
+* Añadidas algunas confirmaciones en ventanas de texto
+
+19/06/2020
+
+* Algunos cambios en textos
+* Compilado en modo Raspberri PI/PC rápido sin informe final
+* Ajustes en menús Fedora
+
+
+21/09/2020
+
+* Reescrito el código por razones de legibilidad (lo hice con prisas)
+* Código más rápido
+* Eliminadas líneas de código que dejé por razones educativas
+* Comentarios reescritos y reestructurados
+* Limpieza masiva del código
+* Abandono de soporte Fedora (no parecía interesarle a nadie)
+* Cambios aquí y allá :)
+* Nuevas funcionalidades de limpieza y reparación
+* Actualizadas las dependencias para las versiones 16.0
+* Debido a cambios en openMSX ya no se soportan distros <20.04 LTS 
+* Los scripts de traducción y mod se incluyen con este script
+* No más dependencias locales incluidas (por compatibilidad/desarrollo)
+
+22/09/2020
+
+* Cambiada la ruta de descompresión de las systemroms bajadas de internet
+* Añadido condicional para no forzar la verificación de paquetería siempre
+* Confirmada compatibilidad con Pi 4 en Ubuntu Mate 20.04
+* Ajustes en documentación
+
+24/12/2021
+
+* Actualizada la traducción española de la rama principal de openMSX
+
+14/04/2022
+
+* Actualizada la traducción española de la rama principal de openMSX
+* Fix en la fecha del changelog de este fichero para la build anterior
+
+30/11/2023
+
+* Eliminada traducción del OSD para la versión normal (cambio de GUI interno)
+* Ajuste de dependencias para soporte de nuevas versiones (libGLEW 2.2)
+* Pequeños ajustes

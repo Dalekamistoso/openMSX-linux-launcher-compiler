@@ -1,0 +1,270 @@
+﻿openMSX TSX Linux Advanced Mod (x64 edition) by DrWh0 & imulilla (30/11/2023)
+=============================================================================
+
+*** ENGLISH TRANSLATION NOT SO GOOD DUE TO LACK OF TIME ***
+
+SORRY ABOUT IT BUT I AM VERY TIRED AT THE TIME OF WRITING THIS.
+
+** SEE ADDITIONAL NOTES IF YOU ARE USING THIS SCRIPT IN RASPBERRI PI **
+
+
+INTRODUCTION:
+=============
+
+I have written this script to provide the best MSX emulation available
+in these moments for GNU / Linux.
+
+Additionally, the use and installation for all types of users has been
+made as easy as possible.
+
+Lots of the planned improvements are included for the next official 
+version of openMSX but also this package consists of the following 
+features:
+
+01.- Script for pseudo portable installation in current user's profile
+02.- Auto installs dependencies of the menu on the fly
+03.- Optional spanish translation of internal OSD and extra functions
+04.- Auto installs systemroms in openMSX (and autodownloads if needed)
+05.- Total uninstallation of all openMSX versions even broken ones
+06.- Installs and compiles the latest openMSX available from GIT
+07.- Support of files in .TSX format (openMSX TSX fork)
+08.- IPS support integrated in .TSX container file (TSX Advanced)
+09.- Modular code with comments to help you create your own scripts
+10.- Transparent MOD "Raspbian compatible"
+11.- Mint 20/Ubuntu 20.04 based Linux supported (even Raspberry PI)
+12.- GIT Download, Cloning and compiling from official/TSXADV servers
+
+
+IMPORTANT:
+==========
+
+The openMSX team HAS NOTHING TO DO WITH THIS SOFTWARE OR THE TSX FORKS.
+
+DON'T ANNOY THEM IF YOU FIND A BUG CONTACT WITH THE RESPECTIVE AUTHORS
+
+ONLY MINT/UBUNTU 20.04/DERIVATIVES ARE SUPPORTED 
+
+POSSIBLY WORKS IN DEBIAN & OTHER DISTROS VIA REPOSITORIES
+
+If you want support for your distribution you must change the calls 
+of your package manager and offline dependencies for your distribution
+if you are interested contact me in order to implement and test those
+changes.
+
+
+Requirements:
+=============
+
+- Ubuntu 20.04/Linux Mint 20 & derivatives (Not tested in other versions)
+- 64 bit only (no openMSX TSX Advanced 32-bit binaries at the moment)
+- 32 bit OS possibly work via repositories (included dependencies are x64)
+- The hardware required to install the aforementioned Linux distributions
+- The packages: "dialog" "pv" and "unzip" (the menu detects & installs it)
+
+
+How to use this script:
+=======================
+
+
+From console (english):
+
+./launcher-mint-english.sh (If you use Mint / Ubuntu)
+./launcher-fedora-english.sh (If you use Fedora)
+
+If it did not launch and only the file was displayed make sure to do:
+
+From console:
+
+chmod + x ./launcher-mint-english.sh (If you use Mint / Ubuntu)
+chmod + x ./launcher-fedora.sh (If you use Fedora)
+
+And it will work for you
+
+From the graphical environment:
+
+If you use GNOME 3 you will have to change the behavior of the file 
+manager before asking if to run the text scripts or view them because 
+by default it only opens the text editor.
+
+To change the default behavior:
+
+Open the file manager (Click on the left in "Activities" -> "Files")
+
+When you have it open:
+
+3 lines button in the upper right bar-> Behavior and select:
+
+- Ask what to do (that is, check the box and then click the close icon)
+
+Pressing double click will ask you whether to run or view it.
+
+ALWAYS choose:
+
+"RUN IN A TERMINAL"
+
+In the event that you clicked only on "run" nothing will appear as it is 
+understood by a terminal = false and since it is a terminal program it 
+will not be displayed.
+
+If you want everything to work correctly, please read this help file.
+
+Also make sure they have the ".sh" execution permissions:
+
+For it:
+
+Right click on the file-> Properties-> Permissions
+
+* Check "Allow this file to run as a program"
+
+* Select in ALL the dropdowns in "Access" -> "Reading and writing"
+
+
+Some additional notes:
+======================
+
+No built-in exception catching features yet
+
+In order to increase performance and avoid errors during compilation
+in Raspberry Pi is almost mandatory to change vm.swappiness value to 10.
+
+
+Credits:
+========
+
+Spanish translation and mod of the internal OSD:
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+Launcher script:
+ DrWh0 (https://twitter.com/Dalekamistoso)
+
+openMSX:
+ andete
+ MBilderbeek
+ mthuurne 
+ & (https://github.com/openMSX/openMSX/graphs/contributors)
+
+openMSX TSX (Fork):
+ NataliaPC 
+ & (https://github.com/nataliapc/openMSX_TSX/graphs/contributors)
+
+openMSX TSX Advanced (Fork):
+ imulilla (fork of the normal TSX version)
+
+Extra thanks:
+
+Paco Gálvez for reporting bugs with certain GPU and others bugs under Mint
+Raul (Darkscheiner) for observation on the Fedora version
+
+
+Legal notices
+=============
+
+This software is distributed AS IS 
+I AM NOT RESPONSIBLE IN ANY WAY OF POSIBLE DAMAGES CAUSED BY THIS SOFTWARE 
+This software has no warranty of any kind.
+I am not responsible for the use of this software correct or not.
+The license of this software adheres to the same as openMSX (GPLv2 +)
+
+
+Contact
+=======
+
+DrWh0:
+
+In the MSX.ORG: User drwh0 (https://msx.org/users/drwh0)
+On Twitter: https://twitter.com/Dalekamistoso
+
+imulilla:
+
+In the MSX.ORG: User imulilla https://msx.org/users/imulilla
+On Twitter: https://twitter.com/imulilla
+
+
+Changes (Changelog)
+===================
+
+04/03/2020
+
+* First version
+
+04/04/2020
+
+* Fixed bugs in Fedora installer is already 100% operational
+* Removed redundant exit button in menu (both versions)
+* Improvements in package management in Fedora
+* Changed local dependencies (Fedora 30)
+* Changed texts in Fedora and Mint / Ubuntu launcher
+* Changed the location of the help file to the script directory
+* Changes in documentation
+
+04/05/2020
+
+* Fixed bug in translation patch individual download url
+* Updated libGLEW package to 2.1 (some gpu need this version)
+* Added analysis & repair of damaged packages before installing
+* Added some warning texts before repairing
+
+
+04/20/2020
+
+* Fixed some bugs under certain conditions
+* Separate repair options
+* Added installation and cloning of GIT source code
+* Added English translations (internal comments not translated yet)
+
+
+06/04/2020
+
+* Many colors in terminal texts
+* Added help file view
+* Added installation of dependencies for building source code
+* Official GIT management improvements
+* Added compilation from official openMSX GIT (official builds)
+* Fixed some text errors 
+* Added option for future Raspberry Pi supported (voted via Twitter)
+* Some adjustments in this file
+
+06/13/2020
+
+* Fixed some bugs
+* Changed behaviour in GIT clonning/compilation options
+* Menu options rearranged and changed
+* Added some graphical text confirmations 
+
+09/21/2020
+
+* Rewritten code for readability reasons
+* Faster code
+* Removed a lot of unneeded lines of code (left for education)
+* Rewritten and restructured comments
+* Major overhaul and cleanup of code
+* Dropped Fedora support (no one seemed to be interested)
+* Changes everywhere :)
+* New cleaning and repair functions
+* Updated dependencies for 16.0 versions 
+* Due to new changes pre 20.04 LTS distros are not supported anymore
+* Translation scripts are already included with the package
+* No more included dependencies (faster development more compability)
+
+
+09/22/2020
+
+* Changed default decompression path of downloaded systemroms
+* Added conditional for not always forcing package repairs
+* Confirmed operation with Pi 4 (Ubuntu Mate 20.04)
+* Corrections on help file
+
+12/24/2021
+
+* Updated spanish translation for main branch of openMSX
+
+04/17/2022
+
+* Updated spanish translation for main branch of openMSX
+
+30/11/2023
+
+* Removed spanish translation in standard openMSX (OSD changed)
+* Install updated dependencies (libGLEW 2.2)
+* Minor tweaks
+
